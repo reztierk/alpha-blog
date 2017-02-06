@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+  
+  def index
+    @users = User.all
+  end
+  
   def new
     @user = User.new
   end
@@ -28,8 +33,11 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = User.find(params[:id])
-    
+    if User.exists?(params[:id])
+      @user = User.find(params[:id])
+    else
+      redirect_to signup_path
+    end
   end
   
   private
